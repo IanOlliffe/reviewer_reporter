@@ -1,0 +1,14 @@
+{% extends "admin/core/base.html" %}
+
+{% block title %}Reviewer Reporter{% endblock %}
+{% block title-section %}Reviewer Reporter{% endblock %}
+
+{% block body %}
+<h1>Reviewer Reporter</h1>
+
+<form method="post"> 
+    {% csrf_token %}  {# Add CSRF token for security #}
+    {{ form }}
+    <button type="submit">Generate Report</button>
+</form>
+{% endblock %}
