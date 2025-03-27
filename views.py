@@ -83,43 +83,6 @@ def get_peer_review_data(start_date, end_date):
 
     return data
 
-    # Prepare data for CSV export
-    data = []
-    for request in review_requests:
-        reviewer_name = request.reviewer.full_name() if request.reviewer else "N/A"
-        manuscript_number = request.article.pk 
-        request_date = request.date_requested.strftime('%Y-%m-%d')
-
-        # Determine review request status and date
-        if request.date_complete:
-            status = "Completed"
-            status_date = request.date_complete.strftime('%Y-%m-%d')
-        elif request.date_declined:
-            status = "Declined"
-            status_date = request.date_declined.strftime('%Y-%m-%d')
-        elif request.decision == 'withdrawn':
-            status = "Withdrawn"
-            status_date = request.date_complete.strftime('%Y-%m-%d') 
-        else:
-            status = "Pending"
-            status_date = ""
-
-        # Dates for accepted and completed reviews
-        accept_date = request.date_accepted.strftime('%Y-%m-%d') if request.date_accepted else ""
-        complete_date = request.date_complete.strftime('%Y-%m-%d') if request.date_complete else ""
-
-        data.append([
-            reviewer_name, 
-            manuscript_number, 
-            request_date, 
-            status, 
-            status_date,
-            accept_date,
-            complete_date
-        ])
-
-    return data
-
 def generate_csv_response(review_requests):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="reviewer_report.csv"'
