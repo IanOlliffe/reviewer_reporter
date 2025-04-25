@@ -1,6 +1,6 @@
-from django.urls import path
+from django.urls import re_path
 from . import views
 
 urlpatterns = [
-    path('', views.reviewer_reporter, name='reviewer_reporter'),
+    re_path(r'^$', views.reviewer_reporter, name='reviewer_reporter'),
 ]
